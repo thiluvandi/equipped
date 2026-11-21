@@ -98,7 +98,7 @@
     const p = reduce ? 1 : clamp(-r.top / (r.height - innerHeight));
     const t = clamp(p / 0.75);
     const o = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const d = clamp((p - 0.62) / 0.3);
+    const d = clamp((p - 0.3) / 0.3);
     const s = hero.style;
     s.setProperty("--p", p.toFixed(3));
     s.setProperty("--lid", (-87.5 + o * 107.5).toFixed(2) + "deg");
@@ -118,8 +118,9 @@
     const y = start + (centre - start) * (1 - Math.pow(1 - d, 3));
     dl.style.left = sr.left + sr.width / 2 - st.left + "px";
     dl.style.top = y - st.top + "px";
-    const hidden = Math.max(0, Math.min(bh, y + bh / 2 - sr.bottom));
-    dl.style.clipPath = `inset(-20px -20px ${hidden}px -20px)`;
+    const cutBottom = Math.max(0, Math.min(bh, y + bh / 2 - sr.bottom));
+    const cutTop = Math.max(0, Math.min(bh, sr.top - (y - bh / 2)));
+    dl.style.clipPath = `inset(${cutTop ? cutTop + "px" : "-20px"} -20px ${cutBottom ? cutBottom + "px" : "-20px"} -20px)`;
     dl.style.visibility = d > 0 ? "visible" : "hidden";
   }
   let busy = false;
