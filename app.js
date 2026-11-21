@@ -98,7 +98,7 @@
     const p = reduce ? 1 : clamp(-r.top / (r.height - innerHeight));
     const t = clamp(p / 0.75);
     const o = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const d = clamp((p - 0.7) / 0.15);
+    const d = clamp((p - 0.62) / 0.3);
     const s = hero.style;
     s.setProperty("--p", p.toFixed(3));
     s.setProperty("--lid", (-87.5 + o * 107.5).toFixed(2) + "deg");
@@ -108,11 +108,19 @@
     s.setProperty("--d", d.toFixed(3));
     dl.classList.toggle("on", d > 0.5);
     dl.tabIndex = d > 0.5 ? 0 : -1;
-    // centre the (flat) download link on the laptop screen
+    // slide the (flat) download link up from the screen's bottom edge to its centre,
+    // hiding whatever part of it is still below the screen
     const sr = screen.getBoundingClientRect();
     const st = stage.getBoundingClientRect();
+    const bh = dl.offsetHeight;
+    const centre = sr.top + sr.height / 2;
+    const start = sr.bottom + bh / 2;
+    const y = start + (centre - start) * (1 - Math.pow(1 - d, 3));
     dl.style.left = sr.left + sr.width / 2 - st.left + "px";
-    dl.style.top = sr.top + sr.height / 2 - st.top + "px";
+    dl.style.top = y - st.top + "px";
+    const hidden = Math.max(0, Math.min(bh, y + bh / 2 - sr.bottom));
+    dl.style.clipPath = `inset(-20px -20px ${hidden}px -20px)`;
+    dl.style.visibility = d > 0 ? "visible" : "hidden";
   }
   let busy = false;
   addEventListener("scroll", () => { if (!busy) { busy = true; requestAnimationFrame(() => { frame(); busy = false; }); } }, { passive: true });
