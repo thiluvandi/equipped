@@ -88,8 +88,10 @@
   /* ----- Scroll-driven opening ----- */
   const hero = document.querySelector(".hero");
   const stage = document.querySelector(".hero-stage");
-  const screen = document.getElementById("screen");
+  const face = document.getElementById("dlFace");
   const dl = document.getElementById("download");
+  dl.addEventListener("pointerenter", () => face.classList.add("hover"));
+  dl.addEventListener("pointerleave", () => face.classList.remove("hover"));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (v) => Math.min(1, Math.max(0, v));
 
@@ -105,23 +107,17 @@
     s.setProperty("--tilt", (-58 + o * 40).toFixed(2) + "deg");
     s.setProperty("--ty", (-46 + o * 30).toFixed(2) + "%");
     s.setProperty("--zoom", (0.8 + o * 0.2).toFixed(3));
-    s.setProperty("--d", d.toFixed(3));
-    dl.classList.toggle("on", d > 0.5);
-    dl.tabIndex = d > 0.5 ? 0 : -1;
-    // slide the (flat) download link up from the screen's bottom edge to its centre,
-    // hiding whatever part of it is still below the screen
-    const sr = screen.getBoundingClientRect();
+    s.setProperty("--e", (1 - Math.pow(1 - d, 3)).toFixed(3));
+    const live = d > 0.5;
+    dl.classList.toggle("on", live);
+    dl.tabIndex = live ? 0 : -1;
+    // lay the invisible link over the on-screen button
+    const fr = face.getBoundingClientRect();
     const st = stage.getBoundingClientRect();
-    const bh = dl.offsetHeight;
-    const centre = sr.top + sr.height / 2;
-    const start = sr.bottom + bh / 2;
-    const y = start + (centre - start) * (1 - Math.pow(1 - d, 3));
-    dl.style.left = sr.left + sr.width / 2 - st.left + "px";
-    dl.style.top = y - st.top + "px";
-    const cutBottom = Math.max(0, Math.min(bh, y + bh / 2 - sr.bottom));
-    const cutTop = Math.max(0, Math.min(bh, sr.top - (y - bh / 2)));
-    dl.style.clipPath = `inset(${cutTop ? cutTop + "px" : "-20px"} -20px ${cutBottom ? cutBottom + "px" : "-20px"} -20px)`;
-    dl.style.visibility = d > 0 ? "visible" : "hidden";
+    Object.assign(dl.style, {
+      left: fr.left - st.left + "px", top: fr.top - st.top + "px",
+      width: fr.width + "px", height: fr.height + "px",
+    });
   }
   let busy = false;
   addEventListener("scroll", () => { if (!busy) { busy = true; requestAnimationFrame(() => { frame(); busy = false; }); } }, { passive: true });

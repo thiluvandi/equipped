@@ -31,14 +31,15 @@
             </div>
           </div>
           <div class="lid-front">
-            <div class="screen" id="screen"></div>
+            <div class="screen"><span class="dl-face" id="dlFace" aria-hidden="true">Download the Excel workbook</span></div>
           </div>
         </div>
         <div class="base" aria-hidden="true"><div class="keys"></div><div class="pad"></div></div>
       </div>
     </div>
 
-    <!-- Kept outside the 3D laptop so clicks always land; positioned over the screen by app.js -->
+    <!-- The visible button is drawn inside the tilted screen (.dl-face). This flat, transparent link
+         sits exactly over it (positioned by app.js) so clicks register in every browser. -->
     <a class="download" id="download" href="Assignment.xlsx" download="Assignment.xlsx" tabindex="-1">Download the Excel workbook</a>
 
     <div class="scroll-cue">Scroll<span></span></div>
