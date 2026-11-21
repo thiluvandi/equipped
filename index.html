@@ -31,18 +31,15 @@
             </div>
           </div>
           <div class="lid-front">
-            <div class="screen">
-              <div class="xl-bar"><i></i><i></i><i></i><span>Assignment.xlsx</span></div>
-              <div class="xl-grid" id="screenGrid" aria-hidden="true"></div>
-              <div class="screen-cta">
-                <a class="download" id="download" href="Assignment.xlsx" download="Assignment.xlsx" tabindex="-1">Download the Excel workbook</a>
-              </div>
-            </div>
+            <div class="screen" id="screen"></div>
           </div>
         </div>
         <div class="base" aria-hidden="true"><div class="keys"></div><div class="pad"></div></div>
       </div>
     </div>
+
+    <!-- Kept outside the 3D laptop so clicks always land; positioned over the screen by app.js -->
+    <a class="download" id="download" href="Assignment.xlsx" download="Assignment.xlsx" tabindex="-1">Download the Excel workbook</a>
 
     <div class="scroll-cue">Scroll<span></span></div>
   </div>

@@ -85,18 +85,10 @@
 
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 
-  /* ----- Laptop screen ----- */
-  const grid = document.getElementById("screenGrid");
-  ["Date", "Description", "Amount", "Class"].forEach((t) => grid.append(el("div", "h", t)));
-  BANK.slice(0, 10).forEach((r) => {
-    grid.append(el("div", "", r.date), el("div", "", r.desc), el("div", r.amt > 0 ? "pos" : "neg", signed(r.amt)), el("div", "", r.cls));
-  });
-  METRICS.forEach((m) => {
-    grid.append(el("div", "tot", ""), el("div", "tot", m.label), el("div", "tot", inr(m.value)), el("div", "tot", ""));
-  });
-
   /* ----- Scroll-driven opening ----- */
   const hero = document.querySelector(".hero");
+  const stage = document.querySelector(".hero-stage");
+  const screen = document.getElementById("screen");
   const dl = document.getElementById("download");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (v) => Math.min(1, Math.max(0, v));
@@ -116,6 +108,11 @@
     s.setProperty("--d", d.toFixed(3));
     dl.classList.toggle("on", d > 0.5);
     dl.tabIndex = d > 0.5 ? 0 : -1;
+    // centre the (flat) download link on the laptop screen
+    const sr = screen.getBoundingClientRect();
+    const st = stage.getBoundingClientRect();
+    dl.style.left = sr.left + sr.width / 2 - st.left + "px";
+    dl.style.top = sr.top + sr.height / 2 - st.top + "px";
   }
   let busy = false;
   addEventListener("scroll", () => { if (!busy) { busy = true; requestAnimationFrame(() => { frame(); busy = false; }); } }, { passive: true });
