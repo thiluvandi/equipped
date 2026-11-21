@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>April Books – Aditya</title>
+<meta name="description" content="Accountant assessment for Equipp: April 2026 bank statement, by Aditya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700;900&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-stage">
+    <div class="hero-copy">
+      <p class="eyebrow">Accountant assessment · Equipp</p>
+      <h1>April's books,<br><span>opened up.</span></h1>
+      <p class="hero-sub">Scroll to open the laptop.</p>
+    </div>
+
+    <div class="scene">
+      <div class="laptop">
+        <div class="lid">
+          <div class="lid-back" aria-hidden="true">
+            <div class="asset-tag">
+              <span class="tag-top">Rented from</span>
+              <strong>Equipp</strong>
+              <span class="tag-id">Asset EQ-0426 · Bengaluru</span>
+            </div>
+          </div>
+          <div class="lid-front">
+            <div class="screen">
+              <div class="xl-bar"><i></i><i></i><i></i><span>Assignment.xlsx</span></div>
+              <div class="xl-grid" id="screenGrid" aria-hidden="true"></div>
+              <div class="screen-cta">
+                <a class="download" id="download" href="Assignment.xlsx" download="Assignment.xlsx" tabindex="-1">Download the Excel workbook</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="base" aria-hidden="true"><div class="keys"></div><div class="pad"></div></div>
+      </div>
+    </div>
+
+    <div class="scroll-cue">Scroll<span></span></div>
+  </div>
+</section>
+
+<main class="dash" id="dashboard">
+  <h2>April at a glance</h2>
+  <p class="lede">The five numbers the task asked for.</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="insight" id="insight" aria-live="polite"></div>
+  <p class="sig">Aditya · April 2026 · <a href="Assignment.xlsx" download>Excel workbook</a></p>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
